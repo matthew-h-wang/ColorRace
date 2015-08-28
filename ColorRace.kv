@@ -1,0 +1,117 @@
+#:kivy 1.9.0
+
+AppSpace:
+	player1: player1
+	player1banner: player1banner
+	player1timer: player1timer
+	player2: player2
+	player2banner: player2banner
+	player2timer: player2timer
+	goal: goal
+
+	PlayerSpace:
+		id: player1
+		pos_hint: {'x': 0, 'center_y': .5}
+		size_hint: (.4, None)
+		height: self.width
+		myTimer: player1timer
+		myBanner: player1banner
+		
+	PlayerBanner:
+		id: player1banner
+		pos_hint: {'center_x': .2, 'top': 1}
+		size_hint: (.4, None)
+		height: player1.y
+		font_size: self.height / 3
+		color: [0,1,0,1]
+
+
+	PlayerTimer:
+		id: player1timer
+		pos_hint: {'center_x': .2, 'y': 0}
+		size_hint: (.4, None)
+		height: player1.y
+		font_size: self.height / 3
+
+	GoalSpace:
+		id: goal
+		pos_hint: {'center_x': .5, 'center_y': .5}
+		size_hint: (.15, None)
+		height: self.width
+
+	PlayerSpace:
+		id: player2
+		pos_hint: {'right': 1, 'center_y': .5}
+		size_hint: (.4, None)
+		height: self.width
+		myTimer: player2timer
+		myBanner: player2banner
+
+	PlayerBanner:
+		id: player2banner
+		pos_hint: {'center_x': .8, 'top': 1}
+		size_hint: (.4, None)
+		height: player2.y
+		font_size: self.height / 3
+		color: [0,1,0,1]
+
+	PlayerTimer:
+		id: player2timer
+		pos_hint: {'center_x': .8, 'y':0}
+		size_hint: (.4, None)
+		height: player2.y
+		font_size: self.height / 3
+
+
+<PlayerSpace>:
+	canvas.before:
+		Color:
+			rgba: .5, .5, .5, 1
+		Rectangle:
+			size: root.size
+			pos: root.pos
+	canvas.after:
+		Color:
+			rgba: 1, 1, 1, 1
+        Line:
+        	width: 2
+            rectangle: self.x + self.width/5,self.y+ self.height/5,self.width * 3/5 ,self.height * 3/5
+
+
+	cols: 5
+	padding: [5,5,5,5]
+	spacing: [2,2]
+
+<GoalSpace>:
+	canvas.before:
+		Color:
+			rgba: .5, .5, .5, 1
+		Rectangle:
+			size: root.size
+			pos: root.pos
+
+	cols: 3
+	padding: [2,2,2,2]
+	spacing: [2,2]
+
+
+
+<ColorSquare>:
+	canvas:
+		Color:
+			rgba: root.color
+		Rectangle:
+			size: root.size
+			pos: root.pos
+
+
+<GoalColorSquare>:
+	canvas:
+		Color:
+			rgba: root.color
+		Rectangle:
+			size: root.size
+			pos: root.pos
+
+<PlayerTimer>:
+	text: '{0:02d}:{1:02d}'.format(self.seconds / 60, self.seconds % 60)
